@@ -10,7 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_11_224920) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_12_152122) do
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genres_movies", id: false, force: :cascade do |t|
+    t.integer "genre_id", null: false
+    t.integer "movie_id", null: false
+    t.index ["genre_id", "movie_id"], name: "index_genres_movies_on_genre_id_and_movie_id"
+    t.index ["movie_id", "genre_id"], name: "index_genres_movies_on_movie_id_and_genre_id"
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "published_date"
+    t.integer "publisher_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["publisher_id"], name: "index_movies_on_publisher_id"
+  end
+
+  create_table "publishers", force: :cascade do |t|
+    t.string "name"
+    t.string "country"
+    t.date "founded"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -18,4 +48,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_11_224920) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "movies", "publishers"
 end
