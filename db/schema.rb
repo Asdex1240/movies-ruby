@@ -51,7 +51,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_12_161454) do
     t.index ["movie_id"], name: "index_reviews_on_movie_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
-
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
